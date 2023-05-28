@@ -25,7 +25,7 @@ class TubeSummarizer:
         return request.status_code == 200
     
     
-    def load_video_subtitles(self, video_link):
+    def load_video_script(self, video_link):
         id = extract.video_id(video_link)
         transcript = YouTubeTranscriptApi.get_transcript(id, languages=('en','fr'))
         

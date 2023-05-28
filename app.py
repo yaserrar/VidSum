@@ -19,9 +19,9 @@ def initailize_summarizer(video_link):
     return tube_summarizer
     
 @st.cache_resource
-def load_subtitles(video_link):
-    subtitles = tube_summarizer.load_video_subtitles(video_link=video_link)
-    return subtitles
+def load_script(video_link):
+    script = tube_summarizer.load_video_script(video_link=video_link)
+    return script
 
 @st.cache_resource
 def generate_summary(video_link):
@@ -34,8 +34,6 @@ def embed_script(video_link):
     tube_summarizer.embed_video_script()
      
 st.header("TubeSummarizer")
-st.markdown('#') 
-
 st.markdown('#### I : YouTube Video URL')
 video_link = st.text_input("URL :", placeholder="https://www.youtube.com/watch?v=************")
 
@@ -44,13 +42,12 @@ tube_summarizer = initailize_summarizer(video_link)
 if tube_summarizer.is_valid_youtube_link(video_link):
     st.video(video_link)
 
-    # with st.spinner("Extracting subtitles..."):
-    subtitles = load_subtitles(video_link)
+    script = load_script(video_link)
 
-    if subtitles and len(subtitles) <= 20000:
+    if script and len(script) <= 20000:
 
-        st.markdown('#### II. Subtitles')
-        stx.scrollableTextbox(subtitles, height=200)
+        st.markdown('#### II. Video script')
+        stx.scrollableTextbox(script, height=200)
 
         st.markdown('#### III. Summarization / Q&A')
         choice = st.selectbox("Please choose an option :", ('Summarization', 'Q&A'))
@@ -59,13 +56,13 @@ if tube_summarizer.is_valid_youtube_link(video_link):
             if st.button("Generate Summary"):
 
                 # with st.spinner("Generating summary..."):
-                summary = generate_summary(subtitles)
+                summary = generate_summary(script)
 
                 stx.scrollableTextbox(summary, height=200)
         else:
             question = st.text_input("Question: ", placeholder="Type your question here")
             if st.button("Generate Answer"):
-                embed_script(subtitles)
+                embed_script(script)
                 st.session_state.questions.append(question)
                 
                 with st.spinner("Answering..."):
