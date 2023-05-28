@@ -9,7 +9,7 @@ from langchain.chains.summarize import load_summarize_chain
 from langchain.callbacks import get_openai_callback
 from langchain.vectorstores.faiss import FAISS
 from langchain.chains import RetrievalQA
-from langchain.embeddings import HuggingFaceHubEmbeddings
+from langchain.embeddings import OpenAIEmbeddings
 import requests
 
 class TubeSummarizer:
@@ -26,18 +26,21 @@ class TubeSummarizer:
     
     
     def load_video_script(self, video_link):
-        id = extract.video_id(video_link)
-        transcript = YouTubeTranscriptApi.get_transcript(id, languages=('en','fr'))
-        
-        video_script = ""
-
-        for text in transcript:
-            t = text["text"]
-            if t != '[Music]':
-                video_script += t + " "
+        try:
+            id = extract.video_id(video_link)
+            transcript = YouTubeTranscriptApi.get_transcript(id, languages=('en','fr'))
             
-        self.video_script = video_script   
-         
+            video_script = ""
+
+            for text in transcript:
+                t = text["text"]
+                if t != '[Music]':
+                    video_script += t + " "
+                
+            self.video_script = video_script   
+        except:
+            self.video_script = ""
+            
         return self.video_script 
     
     
@@ -65,10 +68,10 @@ class TubeSummarizer:
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=200, chunk_overlap=50)
         self.chat_docs = text_splitter.create_documents([self.video_script])
         
-        embedding_model = HuggingFaceHubEmbeddings(
-                                                    repo_id="sentence-transformers/distiluse-base-multilingual-cased-v2", 
-                                                    huggingfacehub_api_token=os.environ.get("HUGGINGFACEHUB_API_TOKEN")
-                                                   )
+        embedding_model = OpenAIEmbeddings(
+                                            openai_organization=os.environ.get("OPENAI_API_ORGANIZATION"),
+                                            openai_api_key=os.environ.get("OPENAI_API_KEY")
+                                        )
         
         vector_store = FAISS.from_documents(self.chat_docs, embedding_model)
         
