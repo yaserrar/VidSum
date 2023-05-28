@@ -33,8 +33,6 @@ def generate_summary(video_link):
 def embed_script(video_link):
     tube_summarizer.embed_video_script()
      
-
-
 st.header("TubeSummarizer")
 st.markdown('#') 
 
