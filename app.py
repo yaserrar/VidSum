@@ -48,7 +48,7 @@ def embed_script(video_link):
     tube_summarizer.embed_video_script()
      
 st.header("TubeSummarizer")
-st.markdown('#### I : YouTube Video URL')
+st.markdown('#### I. YouTube Video URL')
 video_link = st.text_input("URL :", placeholder="https://www.youtube.com/watch?v=************")
 
 tube_summarizer = initailize_summarizer(video_link)
@@ -68,7 +68,7 @@ if tube_summarizer.is_valid_youtube_link(video_link):
             stx.scrollableTextbox(script, height=200)
 
             st.markdown('#### III. Summarization / Q&A')
-            choice = st.selectbox("Please choose an option :", ('Summarization', 'Q&A'))
+            choice = st.selectbox("Choose an option :", ('Summarization', 'Q&A'))
 
             if choice == "Summarization":
                 if st.button("Generate Summary"):
