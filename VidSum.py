@@ -12,7 +12,7 @@ from langchain.chains import RetrievalQA
 from langchain.embeddings import OpenAIEmbeddings
 import requests
 
-class TubeSummarizer:
+class VidSum:
     
     def __init__(self) :
         load_dotenv()

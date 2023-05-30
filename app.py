@@ -1,11 +1,11 @@
 import streamlit as st
-from TubeSummarizer import TubeSummarizer
+from VidSum import VidSum
 import streamlit_scrollable_textbox as stx
 from streamlit_chat import message
 import socket
 import pandas as pd
 
-st.set_page_config(page_title="TubeSummarizer") # page_icon=":smiley:", 
+st.set_page_config(page_title="VidSum") # page_icon=":smiley:", 
 
 if "questions" not in st.session_state:
     st.session_state.questions = []
@@ -22,7 +22,7 @@ def get_ip_address():
     
 @st.cache_resource
 def initailize_summarizer(video_link):
-    tube_summarizer = TubeSummarizer()
+    tube_summarizer = VidSum()
     st.session_state.questions = []
     st.session_state.answers = []
     
@@ -47,7 +47,7 @@ def generate_summary(video_link):
 def embed_script(video_link):
     tube_summarizer.embed_video_script()
      
-st.header("TubeSummarizer")
+st.header("VidSum")
 st.markdown('#### I. YouTube Video URL')
 video_link = st.text_input("URL :", placeholder="https://www.youtube.com/watch?v=************")
 
