@@ -6,7 +6,7 @@
 
 ## Demo
 
-<a href="https://VidSum.streamlit.app"><img src="https://static.streamlit.io/badges/streamlit_badge_black_white.svg"/></a>
+<a href="https://vid-sum.streamlit.app"><img src="https://static.streamlit.io/badges/streamlit_badge_black_white.svg"/></a>
 
 ## Installation
 
