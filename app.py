@@ -47,13 +47,14 @@ def generate_summary(video_link):
 def embed_script(video_link):
     tube_summarizer.embed_video_script()
      
-st.header("VidSum")
+st.markdown("<h1 style='text-align: center; color: #FFF;'>VidSum</h1>", unsafe_allow_html=True)
 st.markdown('#### I. YouTube Video URL')
-video_link = st.text_input("URL :", placeholder="https://www.youtube.com/watch?v=************")
+video_link = st.text_input("URL :", placeholder="YouTube Video URL")
 
 tube_summarizer = initailize_summarizer(video_link)
 
 if tube_summarizer.is_valid_youtube_link(video_link):
+    st.markdown('#### II. YouTube Video Player')
     st.video(video_link)
 
     script = load_script(video_link)
@@ -63,12 +64,12 @@ if tube_summarizer.is_valid_youtube_link(video_link):
         df_ips = pd.read_csv('./ips.csv')
         count_ips = df_ips.iloc[:,0].to_list().count(get_ip_address())
 
-        if (count_ips <= 5):
-            st.markdown('#### II. Video script')
+        if (count_ips <= 10):
+            st.markdown('#### III. Video Script')
             stx.scrollableTextbox(script, height=200)
 
-            st.markdown('#### III. Summarization / Q&A')
-            choice = st.selectbox("Choose an option :", ('Summarization', 'Q&A'))
+            st.markdown('#### IV. Summarization / Chat')
+            choice = st.selectbox("Choose an option :", ('Summarization', 'Chat'))
 
             if choice == "Summarization":
                 if st.button("Generate Summary"):
@@ -85,7 +86,7 @@ if tube_summarizer.is_valid_youtube_link(video_link):
                         
                     st.session_state.answers.append(answer)
                     
-                if st.button("Clear chat"):
+                if st.button("Clear Chat"):
                     st.session_state.questions = []
                     st.session_state.answers = []
                 

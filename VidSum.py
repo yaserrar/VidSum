@@ -12,11 +12,13 @@ from langchain.chains import RetrievalQA
 from langchain.embeddings import OpenAIEmbeddings
 import requests
 
+load_dotenv()
+
 class VidSum:
     
     def __init__(self) :
-        load_dotenv()
-       
+        pass
+
     def is_valid_youtube_link(self, video_link):
         try:
             request = requests.get(video_link, allow_redirects=False)
@@ -65,7 +67,7 @@ class VidSum:
                 
                 
     def embed_video_script(self):
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=200, chunk_overlap=50)
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=400, chunk_overlap=80)
         self.chat_docs = text_splitter.create_documents([self.video_script])
         
         embedding_model = OpenAIEmbeddings(

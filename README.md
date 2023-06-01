@@ -2,7 +2,7 @@
 
 <!--<img src="https://img.shields.io/github/stars/yaserrar/VidSum?color=blue&style=social"/>-->
 
-**VidSum** is a Python application built using `Streamlit` that allows you to summarize YouTube videos. It utilizes OpenAI's GPT model to generate concise summaries of video content. In addition to summarization, **VidSum** also offers a chatbot feature powered by GPT, allowing you to have interactive conversations based on the video's content.
+**VidSum** is a Python application built using `Streamlit` that leverages the power of OpenAI's Large Language models and Embedding Models to summarize YouTube videos, it also offers a chatbot feature powered by GPT, allowing you to have interactive conversations based on the video's content.
 
 ## Demo
 
